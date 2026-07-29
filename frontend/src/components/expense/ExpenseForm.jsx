@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { PlusCircle, X } from 'lucide-react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 const CATEGORIES = [
   'Food & Dining',
@@ -16,7 +19,7 @@ const ExpenseForm = ({ isOpen, onClose, onAddExpense, setToast }) => {
     amount: '',
     description: '',
     category: '',
-    date: new Date().toISOString().split('T')[0]
+    date: null
   });
   const [loading, setLoading] = useState(false);
 
@@ -32,18 +35,24 @@ const ExpenseForm = ({ isOpen, onClose, onAddExpense, setToast }) => {
       setToast({ message: 'Please fill all fields', type: 'error' });
       return;
     }
-    
+
+
+
     setLoading(true);
-    const success = await onAddExpense({ ...formData, amount: Number(formData.amount) });
+    const success = await onAddExpense({
+      ...formData,
+      amount: Number(formData.amount),
+      date: moment(formData.date).format('YYYY-MM-DD')
+    });
     setLoading(false);
-    
+
     if (success) {
       setToast({ message: 'Expense added successfully', type: 'success' });
       setFormData({
         amount: '',
         description: '',
         category: '',
-        date: new Date().toISOString().split('T')[0]
+        date: null
       });
       onClose();
     } else {
@@ -61,7 +70,7 @@ const ExpenseForm = ({ isOpen, onClose, onAddExpense, setToast }) => {
               <X className="h-5 w-5" />
             </button>
           </div>
-          
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Amount (₹)</label>
@@ -106,12 +115,14 @@ const ExpenseForm = ({ isOpen, onClose, onAddExpense, setToast }) => {
 
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Date</label>
-              <input
-                type="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-colors"
+              <DatePicker
+                selected={formData.date}
+                onChange={(date) => setFormData({ ...formData, date })}
+                dateFormat="dd/MM/yyyy"
+                placeholderText="DD/MM/YYYY"
+                className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-colors bg-white"
+                wrapperClassName="w-full block"
+                showPopperArrow={false}
               />
             </div>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { LayoutDashboard, Receipt, Wallet } from 'lucide-react';
+import { LayoutDashboard, IndianRupee, Wallet } from 'lucide-react';
 
 const Sidebar = () => {
   return (
@@ -42,7 +42,7 @@ const Sidebar = () => {
             }`
           }
         >
-          <Receipt className="h-6 w-6 md:h-5 md:w-5" />
+          <IndianRupee className="h-6 w-6 md:h-5 md:w-5" />
           <span className="text-[10px] md:text-base font-semibold md:font-medium">Expenses</span>
         </NavLink>
       </div>

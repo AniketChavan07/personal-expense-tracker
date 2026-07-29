@@ -10,7 +10,7 @@ const Toast = ({ message, type = 'success', onClose }) => {
   }, [onClose]);
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 animate-fade-in">
+    <div className="fixed top-4 right-4 z-50 animate-fade-in">
       <div className={`flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg border ${
         type === 'success' 
           ? 'bg-emerald-50 border-emerald-200 text-emerald-800' 
