@@ -19,6 +19,13 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Routes
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Expense Tracker API is running successfully!'
+  });
+});
+
 app.use('/api/expenses', expenseRoutes);
 
 // Error Handling Middleware
